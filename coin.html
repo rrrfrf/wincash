@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="co.css">
+</head>
+<body>
+    <div class="container">
+    <div class="coin" id="coin">
+
+        <div class="heads">
+           <img src="head.jpg" width="145px" height="145px">
+        </div>
+     
+        <div class="tails">
+           <img src="tails.jpg" width="145px" height="145px">
+        </div>
+  
+     </div>
+
+     <div class="stats">
+        <p id="heads-count">Heads: 0</p>
+        <p id="tails-count">Tails: 0</p>
+    </div>
+    <div class="buttons">
+        <button id="flip-button">Flip Coin</button>
+        <button id="reset-button">Reset</button>
+    </div>
+
+    <script type="text/javascript">
+    
+    let coin = document.querySelector(".coin");
+    let flipBtn = document.querySelector("#flip-button");
+    let resetBtn = document.querySelector("#reset-button");
+    let heads = 0;
+    let tails = 0;
+    flipBtn.addEventListener("click", () => {
+    let i = Math.floor(Math.random() * 2);
+    coin.style.animation = "none";
+    if(i){
+        setTimeout(function(){
+            coin.style.animation = "spin-heads 3s forwards";
+        }, 100);
+        heads++;
+    }
+    else{
+        setTimeout(function(){
+            coin.style.animation = "spin-tails 3s forwards";
+        }, 100);
+        tails++;
+    }
+    setTimeout(updateStats, 3000);
+    disableButton();
+});     
+
+function updateStats(){
+    document.querySelector("#heads-count").textContent = `Heads: ${heads}`;
+    document.querySelector("#tails-count").textContent = `Tails: ${tails}`;
+}
+
+function disableButton(){
+    flipBtn.disabled = true;
+    setTimeout(function(){
+        flipBtn.disabled = false;
+    },3000);
+}
+
+resetBtn.addEventListener("click",() => {
+    coin.style.animation = "none";
+    heads = 0;
+    tails = 0;
+    updateStats();
+});
+
+
+    </script>   
+</body>
+</html>
